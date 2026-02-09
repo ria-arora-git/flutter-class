@@ -10,106 +10,78 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: const Text("app bar"),
-          backgroundColor: const Color.fromARGB(255, 53, 163, 253),
-          centerTitle: true,
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Row',
+      home: const RowExample(),
+    );
+  }
+}
+
+class RowExample extends StatelessWidget {
+  const RowExample({super.key});
+
+  Widget buildButton(String text, Color bgColor, Color textColor) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: bgColor,
+        foregroundColor: textColor,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 28,
+          vertical: 22,
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      onPressed: () {},
+      child: Text(text),
+    );
+  }
 
-        
-        
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+  Widget buildLabel(String text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: Colors.white,
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Flutter Row"),
+        backgroundColor: Colors.blue,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: Column(
+          children: [
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const SizedBox(height: 24),
-
-                const Text(
-                  'Table',
-                  style: TextStyle(
-                    fontSize: 48,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-
-                const SizedBox(height: 48),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 96.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide:
-                            const BorderSide(color: Colors.blue, width: 2),
-                      ),
-                      labelText: 'Enter your name',
-                    ),
-                  ),
-                ),
-
-                const SizedBox(height: 24),
-
-                Image.network(
-                  "https://flutter.dev/assets/images/shared/brand/flutter/logo/flutter-lockup.png",
-                  height: 120,
-                ),
-
-                const SizedBox(height: 32),
-
-                Container(
-                  margin: const EdgeInsets.all(20),
-                  child: Table(
-                    border: TableBorder.all(
-                      color: Colors.red,
-                      width: 3,
-                    ),
-                    children: const [
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text('ID'),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text('Name'),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text('1'),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text('Abc'),
-                          ),
-                        ],
-                      ),
-                      TableRow(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Text('2'),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(8),
-                            child: Text('Xyz'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                buildLabel("ReactJs"),
+                buildLabel("Flutter"),
+                buildLabel("MySQL"),
               ],
             ),
-          ),
+
+            const SizedBox(height: 20),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildButton("ReactJs", Colors.purple, Colors.white),
+                buildButton("Flutter", Colors.purple, Colors.white),
+                buildButton("MySQL", Colors.purple, Colors.white),
+              ],
+            ),
+          ],
         ),
       ),
     );
