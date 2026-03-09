@@ -10,42 +10,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Flutter Navigation',
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Row',
-      home: const RowExample(),
+      theme: ThemeData(primarySwatch: Colors.green),
+      home: const FirstRoute(),
     );
   }
 }
 
-class RowExample extends StatelessWidget {
-  const RowExample({super.key});
+class FirstRoute extends StatelessWidget {
+  const FirstRoute({super.key});
 
-  Widget buildButton(String text, Color bgColor, Color textColor) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: bgColor,
-        foregroundColor: textColor,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 28,
-          vertical: 22,
+  Widget navButton(BuildContext context, String text, Widget page, Color color) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+          minimumSize: const Size(220, 50),
         ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-      ),
-      onPressed: () {},
-      child: Text(text),
-    );
-  }
-
-  Widget buildLabel(String text) {
-    return Text(
-      text,
-      style: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-        color: Colors.white,
-        backgroundColor: Colors.green,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => page),
+          );
+        },
+        child: Text(text),
       ),
     );
   }
@@ -53,35 +44,81 @@ class RowExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Flutter Row"),
-        backgroundColor: Colors.blue,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 20),
+      appBar: AppBar(title: const Text('First Screen')),
+      body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildLabel("ReactJs"),
-                buildLabel("Flutter"),
-                buildLabel("MySQL"),
-              ],
-            ),
-
-            const SizedBox(height: 20),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildButton("ReactJs", Colors.purple, Colors.white),
-                buildButton("Flutter", Colors.purple, Colors.white),
-                buildButton("MySQL", Colors.purple, Colors.white),
-              ],
-            ),
+            navButton(context, "Go to Second Screen", const SecondRoute(), Colors.orangeAccent),
+            navButton(context, "Go to Third Screen", const ThirdRoute(), Colors.deepPurple),
+            navButton(context, "Go to Fourth Screen", const FourthRoute(), Colors.teal),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  const SecondRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.orangeAccent,
+      appBar: AppBar(title: const Text("Second Screen")),
+      body: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
+
+class ThirdRoute extends StatelessWidget {
+  const ThirdRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.deepPurple,
+      appBar: AppBar(title: const Text("Third Screen")),
+      body: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.yellow,
+            foregroundColor: Colors.black,
+          ),
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Go Back'),
+        ),
+      ),
+    );
+  }
+}
+
+class FourthRoute extends StatelessWidget {
+  const FourthRoute({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.teal,
+      appBar: AppBar(title: const Text("Fourth Screen")),
+      body: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+          ),
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Go Back'),
         ),
       ),
     );
